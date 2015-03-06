@@ -6,10 +6,9 @@ import java.util.Scanner;
 public class ResponseThread extends Thread 
 {
 	private Socket s;
-	private String hello = "<html><body>Hello World</body></html>";
-	private String index = "<html><body>Homepage</body></html>";
-	private String error = "<html><body>404: Page not found</body></html>";
-
+	private PrintWriter output;
+	private Scanner input;
+	private boolean connection = true;
 	public ResponseThread(Socket s)
 	{
 		this.s = s;
@@ -18,39 +17,26 @@ public class ResponseThread extends Thread
 	{
 		try
 		{
-			Scanner input = new Scanner(this.s.getInputStream());
+			while(connection)
+			{
+			input = new Scanner(this.s.getInputStream());
 			String req = input.nextLine();
-			System.out.println(req);
-			String[] parts = req.split(" ");
-			String theFunction = parts[0];
-			String thePage = parts[1];
-			String theProtocol = parts[2];
-
-			System.out.println(thePage);
-
-			PrintWriter output = new PrintWriter(this.s.getOutputStream());
-			if(thePage.equalsIgnoreCase("/index.html") || thePage.equalsIgnoreCase("/"))
+			if(req.equalsIgnoreCase("quit"))
 			{
-				output.println(index);
+				connection = false;
 			}
-			else if(thePage.equalsIgnoreCase("/hello.html"))
-			{
-				output.println(hello);
-			}
-			else
-			{
-				output.println(error);
-			}
-			output.flush();
-			output.close();
 			
+			System.out.println(req);
+			output = new PrintWriter(this.s.getOutputStream());
+			output.println(req);
+			
+			output.flush();
+			}
+			output.close();
 		}
-
 		catch(Exception e)
 		{
-			//I'm sure nothing will ever go wrong
+			//im sure nothing will ever go wrong :)
 		}
-
-
 	}
 }
