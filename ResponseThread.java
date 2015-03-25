@@ -1,7 +1,4 @@
-import java.io.PrintWriter;
-import java.net.Socket;
 import java.util.LinkedList;
-import java.util.Scanner;
 
 
 public class ResponseThread extends Thread 
