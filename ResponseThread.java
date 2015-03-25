@@ -1,42 +1,24 @@
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 
 public class ResponseThread extends Thread 
 {
-	private Socket s;
-	private PrintWriter output;
-	private Scanner input;
-	private boolean connection = true;
-	public ResponseThread(Socket s)
+	ConnectedClient theClient;
+	LinkedList<ConnectedClient> allTheClients;
+	
+	public ResponseThread(ConnectedClient theClient)
 	{
-		this.s = s;
+		this.theClient = theClient;
+		this.allTheClients = Driver.theClients;
 	}
+	
 	public void run()
 	{
-		try
-		{
-			while(connection)
-			{
-			input = new Scanner(this.s.getInputStream());
-			String req = input.nextLine();
-			if(req.equalsIgnoreCase("quit"))
-			{
-				connection = false;
-			}
-			
-			System.out.println(req);
-			output = new PrintWriter(this.s.getOutputStream());
-			output.println(req);
-			
-			output.flush();
-			}
-			output.close();
-		}
-		catch(Exception e)
-		{
-			//im sure nothing will ever go wrong :)
-		}
+		this.theClient.sendMessage("Do you want to share or download?");
+		String theAnswer = this.theClient.getMessage();
+		this.theClient.sendMessage(theAnswer);
 	}
 }

@@ -1,12 +1,13 @@
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
+import java.util.LinkedList;
 
 
 public class Driver {
-	//Just added this line
+	
+	static LinkedList<ConnectedClient> theClients = new LinkedList<ConnectedClient>();
+	
 	public static void main(String[] args) throws IOException
 	{
 		ServerSocket ss = new ServerSocket(1234);
@@ -15,8 +16,11 @@ public class Driver {
 		{
 		System.out.println("Waiting...");
 		Socket connection = ss.accept();
-		ResponseThread rt = (new ResponseThread(connection));
+		ConnectedClient cc = new ConnectedClient(connection);
+		Driver.theClients.add(cc);
+		ResponseThread rt = new ResponseThread(cc);
 		rt.start();
+		System.out.println("Connected!");
 		}
 		
 		
