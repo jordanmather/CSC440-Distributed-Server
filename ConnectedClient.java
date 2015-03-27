@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 public class ConnectedClient 
 {
-
 	private Socket theSocket;
 	private PrintWriter output;
 	private Scanner input;
@@ -15,12 +14,12 @@ public class ConnectedClient
 		try
 		{
 			this.theSocket = theSocket;
-			this.output = new PrintWriter(this.theSocket.getOutputStream());
+			this.output = new PrintWriter(this.theSocket.getOutputStream(), true);
 			this.input = new Scanner(this.theSocket.getInputStream());
 		}
 		catch(Exception e)
 		{
-			//suuure...
+			 //yea right
 		}
 	}
 	
