@@ -10,6 +10,7 @@ public class Driver
 	static LinkedList<ConnectedClient> theClients = new LinkedList<ConnectedClient>();
 	static LinkedList<ConnectedClient> theBusyClients = new LinkedList<ConnectedClient>();
 	static LinkedList<ConnectedClient> theNotBusyClients = new LinkedList<ConnectedClient>();
+	static boolean searching = false;
 	
 	public static void main(String[] args) throws Exception
 	{

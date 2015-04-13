@@ -24,7 +24,7 @@ public class ConnectedClient
 		}
 	}
 	
-	public boolean hasByte(int pos)
+	public boolean hasByte(int pos) //return true if the byte is not -1
 	{
 		return this.myBytes[pos];
 	}
@@ -57,7 +57,7 @@ public class ConnectedClient
 	{
 		boolean receivedRequest = false;
 		String response = "";
-		while(!receivedRequest)
+		while(!receivedRequest) //force input.nextLine() to wait for a message
 		{
 			try
 			{
