@@ -55,7 +55,24 @@ public class ConnectedClient
 	
 	public String getMessage()
 	{
-		return this.input.nextLine();
+		boolean receivedRequest = false;
+		String response = "";
+		while(!receivedRequest)
+		{
+			try
+			{
+				response = this.input.nextLine();
+			}
+			catch(Exception e)
+			{
+				//there was an error
+			}
+			if(!response.equals(""))
+			{
+				receivedRequest = true;
+			}
+		}
+		return response; 
 	}
 	
 	public int readByte() throws Exception
